@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  ef.learning:
+    restart: always
+    ports:
+    - 5000:80
+    image: eflearning
+    build:
+      context: .
+      dockerfile: EF.Learning/Dockerfile
+
+  ef.learning.db:
+    ports:
+      - 5432:5432
+    image: postgres
+    hostname: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
