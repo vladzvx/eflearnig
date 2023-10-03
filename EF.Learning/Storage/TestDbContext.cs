@@ -37,9 +37,10 @@ namespace EF.Learning.Storage
 
             modelBuilder.Entity<DataLog>(entitiy =>
             {
-                entitiy.HasKey(e => e.MainId);
+                entitiy.HasKey(e => new { e.MainId, e.PartitionId });
                 entitiy.HasOne(dl => dl.Entity1).WithMany(e1 => e1.DataLogs).HasForeignKey(e => e.Entity1Id);
                 entitiy.HasOne(dl => dl.Entity2).WithMany(e2 => e2.DataLogs).HasForeignKey(e => e.Entity2Id);
+                entitiy.HasOne(dl => dl.Parent).WithMany(e2 => e2.Children).HasForeignKey(e => new { e.ParentMainId, e.ParentPartitionId });
             });
         }
     }
